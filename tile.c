@@ -3,7 +3,7 @@ static void tile(void)
 	unsigned int i, m, n, nx, ny, nw, nh, nm, mw, th;
 	Client *c;
 
-	for (n = 0, m = 0, c = clients; c; c = c->next, n++)
+	for (n = 0, m = 0, c = nextvisible(clients); c; c = nextvisible(c->next), n++)
 		if (c->minimized)
 			m++;
 	nm = n - m;
@@ -15,7 +15,7 @@ static void tile(void)
 
 	nx = wax;
 	ny = way;
-	for (i = 0, c = clients; c; c = c->next, i++) {
+	for (i = 0, c = nextvisible(clients); c; c = nextvisible(c->next), i++) {
 		if (i == 0) {	/* master */
 			nw = mw;
 			nh = (n - 1 > m) ? wah : wah - m;

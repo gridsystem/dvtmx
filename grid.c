@@ -3,7 +3,7 @@ static void grid(void)
 	unsigned int i, m, nm, n, nx, ny, nw, nh, aw, ah, cols, rows;
 	Client *c;
 
-	for (n = 0, m = 0, c = clients; c; c = c->next, n++)
+	for (n = 0, m = 0, c = nextvisible(clients); c; c = nextvisible(c->next), n++)
 		if (c->minimized)
 			m++;
 	/* number of non minimized windows */
@@ -16,7 +16,7 @@ static void grid(void)
 	/* window geoms (cell height/width) */
 	nh = (wah - m) / (rows ? rows : 1);
 	nw = waw / (cols ? cols : 1);
-	for (i = 0, c = clients; c; c = c->next, i++) {
+	for (i = 0, c = nextvisible(clients); c; c = nextvisible(c->next), i++) {
 		if (!c->minimized) {
 			/* if there are less clients in the last row than normal adjust the
 			 * split rate to fill the empty space */

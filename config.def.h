@@ -31,6 +31,16 @@
 #define MFACT 0.5
 /* scroll back buffer size in lines */
 #define SCROLL_HISTORY 500
+/* printf format string for the tag in the status bar */
+#define TAG_SYMBOL   "[%s]"
+/* curses attributes for the currently selected tags */
+#define TAG_SEL      COLOR(BLUE, -1) | A_BOLD
+/* curses attributes for not selected tags which contain no windows */
+#define TAG_NORMAL   A_NORMAL
+/* curses attributes for not selected tags which contain windows */
+#define TAG_OCCUPIED COLOR(BLUE, -1)
+
+const char tags[][8] = { "1", "2", "3", "4", "5" };
 
 #include "tile.c"
 #include "grid.c"
@@ -45,7 +55,10 @@ static Layout layouts[] = {
 	{ "[ ]", fullscreen },
 };
 
-#define MOD CTRL('g')
+#define MOD  CTRL('g')
+#define MOD2 CTRL('t')
+#define MOD3 CTRL('v')
+#define MOD4 CTRL('r')
 
 /* you can at most specifiy MAX_ARGS (3) number of arguments */
 static Key keys[] = {
@@ -87,8 +100,36 @@ static Key keys[] = {
 	{ MOD, 'p',       { paste,          { NULL }                    } },
 	{ MOD, KEY_PPAGE, { scrollback,     { "-1" }                    } },
 	{ MOD, KEY_NPAGE, { scrollback,     { "1"  }                    } },
-	{ MOD, KEY_F(1),  { create,         { "man dvtm", "dvtm help" } } },
 	{ MOD, MOD,       { send,           { (const char []){MOD, 0} } } },
+	// XXX: conflict..
+	{ MOD, '?',       { create,         { "man dvtm", "dvtm help" } } },
+
+	{ MOD, '\t',      { viewprevtag,    { NULL }                    } },
+	{ MOD, '0',       { view,           { NULL }                    } },
+	{ MOD, KEY_F(1),  { view,           { tags[0] }                 } },
+	{ MOD, KEY_F(2),  { view,           { tags[1] }                 } },
+	{ MOD, KEY_F(3),  { view,           { tags[2] }                 } },
+	{ MOD, KEY_F(4),  { view,           { tags[3] }                 } },
+	{ MOD, KEY_F(5),  { view,           { tags[4] }                 } },
+
+	{ MOD2, '0',      { tag,            { NULL }                    } },
+	{ MOD2, KEY_F(1), { tag,            { tags[0] }                 } },
+	{ MOD2, KEY_F(2), { tag,            { tags[1] }                 } },
+	{ MOD2, KEY_F(3), { tag,            { tags[2] }                 } },
+	{ MOD2, KEY_F(4), { tag,            { tags[3] }                 } },
+	{ MOD2, KEY_F(5), { tag,            { tags[4] }                 } },
+
+	{ MOD3, KEY_F(1), { toggleview,     { tags[0] }                 } },
+	{ MOD3, KEY_F(2), { toggleview,     { tags[1] }                 } },
+	{ MOD3, KEY_F(3), { toggleview,     { tags[2] }                 } },
+	{ MOD3, KEY_F(4), { toggleview,     { tags[3] }                 } },
+	{ MOD3, KEY_F(5), { toggleview,     { tags[4] }                 } },
+
+	{ MOD4, KEY_F(1), { toggletag,      { tags[0] }                 } },
+	{ MOD4, KEY_F(2), { toggletag,      { tags[1] }                 } },
+	{ MOD4, KEY_F(3), { toggletag,      { tags[2] }                 } },
+	{ MOD4, KEY_F(4), { toggletag,      { tags[3] }                 } },
+	{ MOD4, KEY_F(5), { toggletag,      { tags[4] }                 } },
 };
 
 static const ColorRule colorrules[] = {

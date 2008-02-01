@@ -3,7 +3,7 @@ static void fibonacci(int s)
 	unsigned int nx, ny, nw, nnw, nh, nnh, i, n, m, nm, mod;
 	Client *c;
 
-	for (n = 0, m = 0, c = clients; c; c = c->next, n++)
+	for (n = 0, m = 0, c = nextvisible(clients); c; c = nextvisible(c->next), n++)
 		if (c->minimized)
 			m++;
 	/* number of non minimized windows */
@@ -23,7 +23,7 @@ static void fibonacci(int s)
 	/* set the mod factor, 2 for dwindle, 4 for spiral */
 	mod = s ? 4 : 2;
 
-	for (i = 0, c = clients; c; c = c->next, i++) {
+	for (i = 0, c = nextvisible(clients); c; c = nextvisible(c->next), i++) {
 		if (!c->minimized) {
 			/* dwindle: even case, spiral: case 0 */
 			if (i % mod == 0) {

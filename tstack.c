@@ -3,7 +3,7 @@ void tstack(void)
 	unsigned int i, m, n, nx, ny, nw, nh, mh, tw;
 	Client *c;
 
-	for (n = 0, m = 0, c = clients; c; c = c->next, n++)
+	for (n = 0, m = 0, c = nextvisible(clients); c; c = nextvisible(c->next), n++)
 		if (c->minimized)
 			m++;
 
@@ -15,7 +15,7 @@ void tstack(void)
 		tw = waw / (n - m - 1);
 
 	nx = wax, nw = waw;
-	for (i = 0, c = clients; c; c = c->next, i++) {
+	for (i = 0, c = nextvisible(clients); c; c = nextvisible(c->next), i++) {
 		if (i == 0) {	/* master */
 			ny = way + wah - mh;
 			nh = mh;
