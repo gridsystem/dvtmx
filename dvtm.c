@@ -231,7 +231,7 @@ is_content_visible(Client *c) {
 static void
 drawbar() {
 	wchar_t wbuf[sizeof bar.text];
-	int x, y, w, maxwidth = screen.w - 2;
+	int x, y, w, maxwidth = screen.w - 2 - strlen(layout->symbol);
 	if (bar.pos == BAR_OFF)
 		return;
 	getyx(stdscr, y, x);
@@ -250,7 +250,8 @@ drawbar() {
 		for (; w < maxwidth; w++)
 			addch(THEME_STATUS_CHAR);
 	}
-	mvaddch(bar.y, screen.w - 1, ']');
+	mvaddch(bar.y, screen.w - 1 - strlen(layout->symbol), ']');
+	mvaddstr(bar.y, screen.w - strlen(layout->symbol), layout->symbol);
 	attrset(NORMAL_ATTR);
 	move(y, x);
 	wnoutrefresh(stdscr);
