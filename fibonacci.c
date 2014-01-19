@@ -40,12 +40,12 @@ static void fibonacci(int s)
 						nw /= 2;
 						nnw -= nw + 1;
 					}
-					mvaddch(ny, nx - 1, ACS_LTEE);
+					mvaddch(ny, nx - 1, THEME_LT_CHAR);
 				}
 			} else if (i % mod == 1) {	/* dwindle: odd case, spiral: case 1 */
 				nx += nw;
-				mvvline(ny, nx, ACS_VLINE, nh);
-				mvaddch(ny, nx, ACS_TTEE);
+				mvvline(ny, nx, THEME_VERT_CHAR, nh);
+				mvaddch(ny, nx, THEME_TT_CHAR);
 				++nx;
 				nw = nnw;
 				/* don't adjust the height for the last non-minimized client */
@@ -61,11 +61,11 @@ static void fibonacci(int s)
 					nw /= 2;
 					nnw -= nw + 1;
 					nx += nnw;
-					mvvline(ny, nx, ACS_VLINE, nh);
-					mvaddch(ny, nx, ACS_TTEE);
+					mvvline(ny, nx, THEME_VERT_CHAR, nh);
+					mvaddch(ny, nx, THEME_TT_CHAR);
 					++nx;
 				} else {
-					mvaddch(ny, nx - 1, ACS_LTEE);
+					mvaddch(ny, nx - 1, THEME_LT_CHAR);
 				}
 			} else if (s) {	/* spiral: case 3 */
 				nw = nnw;
@@ -76,7 +76,7 @@ static void fibonacci(int s)
 					nnh -= nh;
 					ny += nnh;
 				}
-				mvaddch(ny, nx - 1, ACS_LTEE);
+				mvaddch(ny, nx - 1, THEME_LT_CHAR);
 			}
 		} else {
 			nh = 1;

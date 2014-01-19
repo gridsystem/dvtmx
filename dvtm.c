@@ -189,6 +189,7 @@ static unsigned int waw, wah, wax, way;
 static Client *clients = NULL;
 static char *title;
 #define COLOR(fg, bg) COLOR_PAIR(vt_color_reserve(fg, bg))
+#define NOMOD ERR
 
 #include "config.h"
 
@@ -311,12 +312,12 @@ drawbar() {
 		return;
 	if (BAR_ALIGN == ALIGN_RIGHT) {
 		for (int i = 0; i + w < maxwidth; i++)
-			addch(' ');
+			addch(THEME_STATUS_CHAR);
 	}
 	addstr(bar.text);
 	if (BAR_ALIGN == ALIGN_LEFT) {
 		for (; w < maxwidth; w++)
-			addch(' ');
+			addch(THEME_STATUS_CHAR);
 	}
 	attrset(TAG_NORMAL);
 	mvaddch(bar.y, screen.w - 1, ']');
@@ -332,7 +333,7 @@ draw_border(Client *c) {
 
 	wattrset(c->window, (sel == c || (runinall && !c->minimized)) ? SELECTED_ATTR : NORMAL_ATTR);
 	getyx(c->window, y, x);
-	mvwhline(c->window, 0, 0, ACS_HLINE, c->w);
+	mvwhline(c->window, 0, 0, THEME_HORI_CHAR, c->w);
 	maxlen = c->w - (2 + sstrlen(TITLE) - sstrlen("%s%sd")  + sstrlen(SEPARATOR) + 2);
 	if (maxlen < 0)
 		maxlen = 0;
@@ -666,6 +667,7 @@ resize_screen() {
 	waw = screen.w;
 	wah = screen.h;
 	updatebarpos();
+	clear();
 	arrange();
 }
 
@@ -1088,11 +1090,7 @@ redraw(const char *args[]) {
 			wnoutrefresh(c->window);
 		}
 	}
-	wclear(stdscr);
-	wnoutrefresh(stdscr);
-	doupdate();
 	resize_screen();
-	draw_all();
 }
 
 static void
@@ -1587,7 +1585,7 @@ main(int argc, char *argv[]) {
 					handle_mouse();
 				} else if (is_modifier(code)) {
 					mod = code;
-				} else if ((key = keybinding(0, code))) {
+				} else if ((key = keybinding(ERR, code))) {
 					key->action.cmd(key->action.args);
 				} else if (sel && vt_copymode(sel->term)) {
 					vt_copymode_keypress(sel->term, code);
