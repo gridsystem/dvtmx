@@ -7,9 +7,11 @@ PREFIX = /usr/local
 MANPREFIX = ${PREFIX}/share/man
 
 INCS = -I. -I/usr/include -I/usr/local/include
-LIBS = -lc -lutil -lncursesw
+# LIBS = -lc -lutil -lncursesw
 # NetBSD
 #LIBS = -lc -lutil -lcurses
+# OS X
+LIBS = -lc -lutil -lncurses
 # AIX
 #LIBS = -lc -lncursesw
 # Cygwin

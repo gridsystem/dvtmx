@@ -32,6 +32,26 @@
 /* scroll back buffer size in lines */
 #define SCROLL_HISTORY 500
 
+/*
+ * http://www.mkssoftware.com/docs/man3/curs_addch.3.asp
+ *
+ * ACS_CKBOARD   halftone block
+ * ACS_VLINE     vertical line
+ * ACS_HLINE     horizontal line
+ * ACS_TTEE      corner - top tee
+ * ACS_LTEE      corner - left tee
+ * ACS_RTEE      corner - right tee
+ * ACS_PLUS      corner - plus
+ */
+
+#define THEME_VERT_CHAR    ACS_CKBOARD
+#define THEME_HORI_CHAR    ACS_CKBOARD
+#define THEME_TT_CHAR      ACS_CKBOARD
+#define THEME_LT_CHAR      ACS_CKBOARD
+#define THEME_RT_CHAR      ACS_CKBOARD
+#define THEME_PLUS_CHAR    ACS_CKBOARD
+#define THEME_STATUS_CHAR  ACS_CKBOARD
+
 #include "tile.c"
 #include "grid.c"
 #include "bstack.c"

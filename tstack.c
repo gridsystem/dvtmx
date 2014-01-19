@@ -40,8 +40,8 @@ void tstack(void)
 				nw = tw;
 
 			if (i > 1 && !c->minimized) {
-				mvvline(ny, nx, ACS_VLINE, nh);
-				mvaddch(ny, nx, ACS_TTEE);
+				mvvline(ny, nx, THEME_VERT_CHAR, nh);
+				mvaddch(ny, nx, THEME_TT_CHAR);
 				++nx, --nw;
 			}
 		}

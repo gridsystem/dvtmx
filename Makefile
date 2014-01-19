@@ -2,6 +2,7 @@ include config.mk
 
 SRC += dvtm.c vt.c
 OBJ = ${SRC:.c=.o}
+UNAME=$(shell uname -s)
 
 all: clean options dvtm
 
@@ -43,7 +44,11 @@ dist: clean
 
 install: dvtm
 	@echo stripping executable
-	@strip -s dvtm
+	ifeq ('Darwin','$(UNAME)')
+		@strip dvtm
+	else
+		@strip -s dvtm
+	endif
 	@echo installing executable file to ${DESTDIR}${PREFIX}/bin
 	@mkdir -p ${DESTDIR}${PREFIX}/bin
 	@cp -f dvtm ${DESTDIR}${PREFIX}/bin

@@ -25,8 +25,8 @@ static void tile(void)
 					ny = way;
 					nx += mw;
 					nw = waw - mw;
-					mvvline(ny, nx, ACS_VLINE, wah);
-					mvaddch(ny, nx, ACS_TTEE);
+					mvvline(ny, nx, THEME_VERT_CHAR, wah);
+					mvaddch(ny, nx, THEME_TT_CHAR);
 					nx++, nw--;
 				}
 				/* remainder */
@@ -41,7 +41,7 @@ static void tile(void)
 				ny = way + wah - (n - i);
 			}
 			if (i > 1 && nm > 1)
-				mvaddch(ny, nx - 1, ACS_LTEE);
+				mvaddch(ny, nx - 1, THEME_LT_CHAR);
 		}
 		resize(c, nx, ny, nw, nh);
 		if (n > 1 && th != wah)

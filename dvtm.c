@@ -243,12 +243,12 @@ drawbar() {
 		return;
 	if (BAR_ALIGN == ALIGN_RIGHT) {
 		for (int i = 0; i + w < maxwidth; i++)
-			addch(' ');
+			addch(THEME_STATUS_CHAR);
 	}
 	addstr(bar.text);
 	if (BAR_ALIGN == ALIGN_LEFT) {
 		for (; w < maxwidth; w++)
-			addch(' ');
+			addch(THEME_STATUS_CHAR);
 	}
 	mvaddch(bar.y, screen.w - 1, ']');
 	attrset(NORMAL_ATTR);
@@ -263,7 +263,7 @@ draw_border(Client *c) {
 
 	wattrset(c->window, (sel == c || (runinall && !c->minimized)) ? SELECTED_ATTR : NORMAL_ATTR);
 	getyx(c->window, y, x);
-	mvwhline(c->window, 0, 0, ACS_HLINE, c->w);
+	mvwhline(c->window, 0, 0, THEME_HORI_CHAR, c->w);
 	maxlen = c->w - (2 + sstrlen(TITLE) - sstrlen("%s%sd")  + sstrlen(SEPARATOR) + 2);
 	if (maxlen < 0)
 		maxlen = 0;
