@@ -288,6 +288,7 @@ drawbar() {
 	getyx(stdscr, sy, sx);
 	attrset(BAR_ATTR);
 	move(bar.y, 0);
+	addstr(layout->symbol);
 	for (unsigned int i = 0; i < countof(tags); i++){
 		if (seltags[i])
 			attrset(TAG_SEL);
