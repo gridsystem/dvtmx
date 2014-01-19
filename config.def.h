@@ -21,6 +21,10 @@
 #define BAR_POS		BAR_TOP /* BAR_BOTTOM, BAR_OFF */
 /* determines whether the statusbar text should be right or left aligned */
 #define BAR_ALIGN       ALIGN_RIGHT
+
+#define BAR_SEP_L_CHAR '['
+#define BAR_SEP_R_CHAR ']'
+
 /* separator between window title and window number */
 #define SEPARATOR " | "
 /* printf format string for the window title, first %s

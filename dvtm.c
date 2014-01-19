@@ -301,7 +301,7 @@ drawbar() {
 		x += sstrlen(TAG_SYMBOL) - 2 + strlen(tags[i]);
 	}
 	attrset(TAG_NORMAL);
-	addch('[');
+	addch(BAR_SEP_L_CHAR);
 	attrset(BAR_ATTR);
 
 	wchar_t wbuf[sizeof bar.text];
@@ -321,7 +321,7 @@ drawbar() {
 			addch(THEME_STATUS_CHAR);
 	}
 	attrset(TAG_NORMAL);
-	mvaddch(bar.y, screen.w - 1, ']');
+	mvaddch(bar.y, screen.w - 1, BAR_SEP_R_CHAR);
 	attrset(NORMAL_ATTR);
 	move(sy, sx);
 	wnoutrefresh(stdscr);
