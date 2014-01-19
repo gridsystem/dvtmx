@@ -236,7 +236,8 @@ drawbar() {
 		return;
 	getyx(stdscr, y, x);
 	attrset(BAR_ATTR);
-	mvaddch(bar.y, 0, '[');
+	mvaddstr(bar.y, 0, layout->symbol);
+	mvaddch(bar.y, strlen(layout->symbol), BAR_SEP_L_CHAR);
 	if (mbstowcs(wbuf, bar.text, sizeof bar.text) == (size_t)-1)
 		return;
 	if ((w = wcswidth(wbuf, maxwidth)) == -1)
@@ -250,8 +251,7 @@ drawbar() {
 		for (; w < maxwidth; w++)
 			addch(THEME_STATUS_CHAR);
 	}
-	mvaddch(bar.y, screen.w - 1 - strlen(layout->symbol), ']');
-	mvaddstr(bar.y, screen.w - strlen(layout->symbol), layout->symbol);
+	mvaddch(bar.y, screen.w - 1, BAR_SEP_R_CHAR);
 	attrset(NORMAL_ATTR);
 	move(y, x);
 	wnoutrefresh(stdscr);

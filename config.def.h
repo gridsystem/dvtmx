@@ -19,6 +19,10 @@
 #define BAR_ATTR        COLOR(BLUE, -1) | A_NORMAL
 /* status bar (command line option -s) position */
 #define BAR_POS		BAR_TOP /* BAR_BOTTOM, BAR_OFF */
+
+#define BAR_SEP_L_CHAR '['
+#define BAR_SEP_R_CHAR ']'
+
 /* determines whether the statusbar text should be right or left aligned */
 #define BAR_ALIGN       ALIGN_RIGHT
 /* separator between window title and window number */
