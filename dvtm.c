@@ -286,9 +286,8 @@ drawbar() {
 	if (bar.pos == BAR_OFF)
 		return;
 	getyx(stdscr, sy, sx);
-	attrset(BAR_ATTR);
+	
 	move(bar.y, 0);
-	addstr(layout->symbol);
 	for (unsigned int i = 0; i < countof(tags); i++){
 		if (seltags[i])
 			attrset(TAG_SEL);
@@ -298,30 +297,40 @@ drawbar() {
 			attrset(TAG_NORMAL);
 		printw(TAG_SYMBOL, tags[i]);
 		/* -2 because we assume %s is contained in TAG_SYMBOL */
-		x += sstrlen(TAG_SYMBOL) - 2 + strlen(tags[i]);
+		x = x + ( mbstowcs(NULL, TAG_SYMBOL, 0) - 2
+			+ mbstowcs(NULL, tags[i], 0) );
 	}
-	attrset(TAG_NORMAL);
-	addch(BAR_SEP_L_CHAR);
+	
 	attrset(BAR_ATTR);
-
+	addstr(BAR_SEP_L_CHAR);
+	x = x + strlen(BAR_SEP_L_CHAR); 
+	
+	attrset(BAR_ATTR);
+	printw(LAYOUT_SYMBOL, layout->symbol);
+	x = x + strlen(layout->symbol) + 2;
+	
 	wchar_t wbuf[sizeof bar.text];
-	int w, maxwidth = screen.w - x - 2;
-
+	int w, maxwidth = screen.w - x;
+	
 	if (mbstowcs(wbuf, bar.text, sizeof bar.text) == (size_t)-1)
 		return;
 	if ((w = wcswidth(wbuf, maxwidth)) == -1)
 		return;
+	
 	if (BAR_ALIGN == ALIGN_RIGHT) {
 		for (int i = 0; i + w < maxwidth; i++)
 			addch(THEME_STATUS_CHAR);
 	}
+	
 	addstr(bar.text);
+	
 	if (BAR_ALIGN == ALIGN_LEFT) {
 		for (; w < maxwidth; w++)
 			addch(THEME_STATUS_CHAR);
 	}
-	attrset(TAG_NORMAL);
-	mvaddch(bar.y, screen.w - 1, BAR_SEP_R_CHAR);
+	
+	mvaddstr(bar.y, screen.w - 1, BAR_SEP_R_CHAR);
+	
 	attrset(NORMAL_ATTR);
 	move(sy, sx);
 	wnoutrefresh(stdscr);

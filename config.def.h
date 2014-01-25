@@ -22,8 +22,8 @@
 /* determines whether the statusbar text should be right or left aligned */
 #define BAR_ALIGN       ALIGN_RIGHT
 
-#define BAR_SEP_L_CHAR '['
-#define BAR_SEP_R_CHAR ']'
+#define BAR_SEP_L_CHAR "["
+#define BAR_SEP_R_CHAR "]"
 
 /* separator between window title and window number */
 #define SEPARATOR " | "
@@ -37,6 +37,8 @@
 #define SCROLL_HISTORY 500
 /* printf format string for the tag in the status bar */
 #define TAG_SYMBOL   "[%s]"
+/* printf format string for the layout in the status bar */
+#define LAYOUT_SYMBOL   " %s "
 /* curses attributes for the currently selected tags */
 #define TAG_SEL      COLOR(BLUE, -1) | A_BOLD
 /* curses attributes for not selected tags which contain no windows */
