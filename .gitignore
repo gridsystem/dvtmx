@@ -12,3 +12,4 @@ tags
 /log
 /debug
 /patches
+config.h

@@ -44,11 +44,11 @@ dist: clean
 
 install: dvtm
 	@echo stripping executable
-	ifeq ('Darwin','$(UNAME)')
-		@strip dvtm
-	else
-		@strip -s dvtm
-	endif
+ifeq ('Darwin','$(UNAME)')
+	@strip dvtm
+else
+	@strip -s dvtm
+endif
 	@echo installing executable file to ${DESTDIR}${PREFIX}/bin
 	@mkdir -p ${DESTDIR}${PREFIX}/bin
 	@cp -f dvtm ${DESTDIR}${PREFIX}/bin
