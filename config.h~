@@ -22,8 +22,8 @@
 /* determines whether the statusbar text should be right or left aligned */
 #define BAR_ALIGN       ALIGN_RIGHT
 
-#define BAR_SEP_L_CHAR "["
-#define BAR_SEP_R_CHAR "]"
+#define BAR_SEP_L_CHAR ""
+#define BAR_SEP_R_CHAR ""
 
 /* separator between window title and window number */
 #define SEPARATOR " | "
@@ -36,7 +36,7 @@
 /* scroll back buffer size in lines */
 #define SCROLL_HISTORY 500
 /* printf format string for the tag in the status bar */
-#define TAG_SYMBOL   "[%s]"
+#define TAG_SYMBOL   "%s"
 /* printf format string for the layout in the status bar */
 #define LAYOUT_SYMBOL   " %s "
 /* curses attributes for the currently selected tags */
@@ -46,7 +46,7 @@
 /* curses attributes for not selected tags which contain windows */
 #define TAG_OCCUPIED COLOR(BLUE, -1)
 
-const char tags[][8] = { "1", "2", "3", "4", "5" };
+const char tags[][8] = { "╸", "╸" };
 
 /*
  * http://www.mkssoftware.com/docs/man3/curs_addch.3.asp
@@ -60,29 +60,24 @@ const char tags[][8] = { "1", "2", "3", "4", "5" };
  * ACS_PLUS      corner - plus
  */
 
-#define THEME_VERT_CHAR    ACS_CKBOARD
-#define THEME_HORI_CHAR    ACS_CKBOARD
-#define THEME_TT_CHAR      ACS_CKBOARD
-#define THEME_LT_CHAR      ACS_CKBOARD
-#define THEME_RT_CHAR      ACS_CKBOARD
-#define THEME_PLUS_CHAR    ACS_CKBOARD
-#define THEME_UL_CHAR      ACS_ULCORNER
-#define THEME_LL_CHAR      ACS_LLCORNER
-#define THEME_UR_CHAR      ACS_URCORNER
-#define THEME_LR_CHAR      ACS_LRCORNER
+#define THEME_VERT_CHAR    ACS_VLINE
+#define THEME_HORI_CHAR    ACS_HLINE
+#define THEME_TT_CHAR      ACS_TTEE
+#define THEME_LT_CHAR      ACS_LTEE
+#define THEME_RT_CHAR      ACS_RTEE
+#define THEME_PLUS_CHAR    ACS_PLUS
 #define THEME_STATUS_CHAR  ACS_CKBOARD
 
-#include "tile.c"
+#include "tile_border.c"
 #include "grid.c"
 #include "bstack.c"
 #include "fullscreen.c"
 
 /* by default the first layout entry is used */
 static Layout layouts[] = {
-	{ "[]=", tile },
-	{ "+++", grid },
-	{ "TTT", bstack },
-	{ "[ ]", fullscreen },
+	{ "tile", tile_border },
+	{ "stack", bstack },
+	{ "fullscreen", fullscreen },
 };
 
 #define MOD  CTRL('g')

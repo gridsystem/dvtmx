@@ -66,10 +66,6 @@ const char tags[][8] = { "1", "2", "3", "4", "5" };
 #define THEME_LT_CHAR      ACS_CKBOARD
 #define THEME_RT_CHAR      ACS_CKBOARD
 #define THEME_PLUS_CHAR    ACS_CKBOARD
-#define THEME_UL_CHAR      ACS_ULCORNER
-#define THEME_LL_CHAR      ACS_LLCORNER
-#define THEME_UR_CHAR      ACS_URCORNER
-#define THEME_LR_CHAR      ACS_LRCORNER
 #define THEME_STATUS_CHAR  ACS_CKBOARD
 
 #include "tile.c"
