@@ -1,16 +1,12 @@
-# normal ignores
-.*
 *.[ao]
 *.lo
 *.so
-tags
-!.gitignore
-.DS_Store
 *~
 *.swp
 *.swo
+.DS_Store
+tags
 
-# top-level ignores
 /dvtm
 /log
 /log
