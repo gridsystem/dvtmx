@@ -5,6 +5,10 @@
 *.so
 tags
 !.gitignore
+.DS_Store
+*~
+*.swp
+*.swo
 
 # top-level ignores
 /dvtm
